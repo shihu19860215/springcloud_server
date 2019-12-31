@@ -1,0 +1,22 @@
+server:
+  port: 18001
+spring:
+  profiles:
+    active: dev
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      default-filters: global_prefix_path
+eureka:
+  client:
+    eureka-service-url-poll-interval-seconds: 30
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+    hostname: ${spring.cloud.client.ip-address}

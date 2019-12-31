@@ -3,7 +3,7 @@ spring:
     active: dev
   application:
     name: eurka-server
-  port: 1112
+  port: 18000
 eureka:
   instance:
     prefer-ip-address: true
