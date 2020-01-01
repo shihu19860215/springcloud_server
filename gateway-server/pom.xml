@@ -14,12 +14,24 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.msh</groupId>
+            <artifactId>msh-starter-id-generate</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.msh.fastdevelop</groupId>
+            <artifactId>sys-client</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
     </dependencies>
 
@@ -34,4 +46,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

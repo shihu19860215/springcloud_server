@@ -20,6 +20,8 @@
         <relativePath/>
     </parent>
     <properties>
+        <msh.version>1.0.0</msh.version>
+        <com.msh.fastdevelop.sys.version>1.0.0</com.msh.fastdevelop.sys.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -30,6 +32,16 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>com.msh</groupId>
+                <artifactId>msh-starter-id-generate</artifactId>
+                <version>${msh.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.msh.fastdevelop</groupId>
+                <artifactId>sys-client</artifactId>
+                <version>${com.msh.fastdevelop.sys.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
@@ -38,5 +50,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
 
 </project>
