@@ -2,9 +2,9 @@ server:
   port: 18000
 spring:
   profiles:
-    active: dev
+    active: @env@
   application:
-    name: eurka-server
+    name: eureka-server
 
 eureka:
   instance:

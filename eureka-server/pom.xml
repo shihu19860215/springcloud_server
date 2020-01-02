@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>eurka-server</artifactId>
+    <artifactId>eureka-server</artifactId>
 
 
     <dependencies>
@@ -23,7 +23,7 @@
 
     <!-- Package as an executable jar -->
     <build>
-        <finalName>eurka-server</finalName>
+        <finalName>eureka-server</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

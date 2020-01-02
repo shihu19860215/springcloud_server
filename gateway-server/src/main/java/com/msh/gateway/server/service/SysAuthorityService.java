@@ -3,7 +3,6 @@ package com.msh.gateway.server.service;
 import com.msh.fastdevelop.sys.client.po.AuthorityUrlPO;
 import com.msh.fastdevelop.sys.client.qo.AuthorityUrlQO;
 import com.msh.frame.client.common.CommonResult;
-import com.msh.frame.client.common.Page;
 import com.msh.gateway.server.client.SysAuthorityUrlClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ public class SysAuthorityService {
     private SysAuthorityUrlClient sysAuthorityUrlClient;
     public CommonResult<Map<String, Integer>> getUrlAuthIdMap(){
         AuthorityUrlQO authorityUrlQO = new AuthorityUrlQO();
-        authorityUrlQO.getPage().setPageSize(Integer.MAX_VALUE);
+        authorityUrlQO.setPageSize(Integer.MAX_VALUE);
         CommonResult<List<AuthorityUrlPO>> listCommonResult
                 = sysAuthorityUrlClient.list(authorityUrlQO);
         if(0 != listCommonResult.getCode()){
