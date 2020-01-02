@@ -18,6 +18,10 @@
             <artifactId>msh-starter-id-generate</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.msh</groupId>
+            <artifactId>msh-starter-redis</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.msh.fastdevelop</groupId>
             <artifactId>sys-client</artifactId>
         </dependency>
@@ -32,6 +36,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.github.openfeign</groupId>
+                    <artifactId>feign-hystrix</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

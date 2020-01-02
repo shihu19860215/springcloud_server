@@ -1,4 +1,15 @@
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://dev.eureka1.msh.com:18000/eureka/
+      defaultZone: http://127.0.0.1:18000/eureka/
+spring:
+  redis: #以下redis部分自行修改
+    host: 192.168.70.128
+    port: 6379
+    #       password: dh35hebsd87ed9df9d0kemd9
+    database: 0
+logging:
+  level:
+    root: info
+    com:
+      msh: debug

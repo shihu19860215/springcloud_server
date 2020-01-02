@@ -37,6 +37,11 @@
                 <version>${msh.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.msh</groupId>
+                <artifactId>msh-starter-redis</artifactId>
+                <version>${msh.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.msh.fastdevelop</groupId>
                 <artifactId>sys-client</artifactId>
                 <version>${com.msh.fastdevelop.sys.version}</version>

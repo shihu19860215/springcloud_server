@@ -1,4 +1,4 @@
-package com.msh.gateway.server.warpper;
+package com.msh.gateway.server.client;
 
 import com.msh.fastdevelop.sys.client.po.AuthorityUrlPO;
 import com.msh.fastdevelop.sys.client.qo.AuthorityUrlQO;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@FeignClient(value = "sys-api")
-public interface SysAuthorityUrlWarpper {
+@FeignClient(value = "sys-api",path = "/authorityurl")
+public interface SysAuthorityUrlClient {
 
-    @RequestMapping(value = "/authorityurl",method = RequestMethod.GET)
+    @RequestMapping(value = "/list",method = RequestMethod.POST)
     CommonResult<List<AuthorityUrlPO>> list(AuthorityUrlQO var1);
 }
