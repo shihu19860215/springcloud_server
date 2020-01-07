@@ -22,7 +22,7 @@
             <artifactId>msh-starter-redis</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.msh.fastdevelop</groupId>
+            <groupId>com.shihu.artascope</groupId>
             <artifactId>sys-client</artifactId>
         </dependency>
         <dependency>

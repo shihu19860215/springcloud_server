@@ -1,9 +1,9 @@
 package com.msh.gateway.server.service;
 
-import com.msh.fastdevelop.sys.client.po.AuthorityUrlPO;
-import com.msh.fastdevelop.sys.client.qo.AuthorityUrlQO;
 import com.msh.frame.client.common.CommonResult;
 import com.msh.gateway.server.client.SysAuthorityUrlClient;
+import com.shihu.artascope.sys.client.po.AuthorityUrlPO;
+import com.shihu.artascope.sys.client.qo.AuthorityUrlQO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

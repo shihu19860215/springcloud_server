@@ -8,3 +8,8 @@ spring:
     port: 6379
     #       password: dh35hebsd87ed9df9d0kemd9
     database: 0
+logging:
+  level:
+    root: debug
+    com:
+      msh: debug

@@ -42,7 +42,7 @@
                 <version>${msh.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.msh.fastdevelop</groupId>
+                <groupId>com.shihu.artascope</groupId>
                 <artifactId>sys-client</artifactId>
                 <version>${com.msh.fastdevelop.sys.version}</version>
             </dependency>

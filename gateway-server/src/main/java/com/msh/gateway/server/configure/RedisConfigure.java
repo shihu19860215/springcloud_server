@@ -1,9 +1,9 @@
 package com.msh.gateway.server.configure;
 
-import com.msh.fastdevelop.sys.client.model.UserInfo;
 import com.msh.frame.interfaces.ICache;
 import com.msh.frame.interfaces.ICacheManager;
 import com.msh.gateway.server.model.TokenInfo;
+import com.shihu.artascope.sys.client.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
