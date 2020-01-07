@@ -1,7 +1,7 @@
 package com.msh.gateway.server.client;
 
+import com.msh.artascope.sys.client.model.UserInfo;
 import com.msh.frame.client.common.CommonResult;
-import com.shihu.artascope.sys.client.model.UserInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

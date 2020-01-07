@@ -1,18 +1,18 @@
 package com.msh.gateway.server.filter;
 
 
+import com.msh.artascope.sys.client.enums.UserInfoTypeEnum;
+import com.msh.artascope.sys.client.model.UserInfo;
 import com.msh.frame.client.common.CommonCode;
 import com.msh.frame.client.common.CommonResult;
 import com.msh.frame.client.define.StringDef;
 import com.msh.frame.interfaces.ICache;
-import com.msh.frame.interfaces.IdGenerateable;
 import com.msh.gateway.server.model.TokenInfo;
 import com.msh.gateway.server.service.SysAuthorityService;
 import com.msh.gateway.server.service.SysUserService;
 import com.msh.gateway.server.util.ResponseUtil;
 import com.msh.starter.id.generate.abstracts.AbstractDateIdGenerate;
 import com.msh.starter.id.generate.abstracts.AbstractIdGenerate;
-import com.shihu.artascope.sys.client.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.Ordered;
@@ -63,40 +63,39 @@ public class AuthorityWebFilter implements WebFilter,Ordered {
             uri = "/api"+ uri.substring(index+4);
         }
         Integer linkAuth = urlAuthMap.get(uri);
-        if(null == linkAuth){
-            return ResponseUtil.commonResultResponse(response, CommonResult.errorReturn(CommonCode.NO_PAGE));
-        }
 
-        switch (linkAuth){
-            case 1:{
-                break;
-            }case 2:{
-                break;
-            }case 3:{
-                return chain.filter(exchange);
-            }case 4:{
-                CommonResult<UserInfo> userInfoCommonResult = sysUserService.login(request.getQueryParams().getFirst("username"), request.getQueryParams().getFirst("password"));
-                if(userInfoCommonResult.isSuccess()){
-                    UserInfo userInfo = userInfoCommonResult.getResult();
-                    long tokenResp = idGenerateable.getUniqueID();
-                    tokenCache.put(tokenResp, new TokenInfo(userInfo.getUserId(), System.currentTimeMillis()+ 1000L*60*60*24));
-                    userInfoCache.put(userInfo.getUserId(), userInfo);
-                    response.getCookies().add(AUTHORIZE_TOKEN, ResponseCookie.from(AUTHORIZE_TOKEN
-                            , String.valueOf(tokenResp))
-                            .path("/")
-                            .build());
-                    response.getCookies().add(AUTHORIZE_UID, ResponseCookie.from(AUTHORIZE_UID
-                            , String.valueOf(userInfo.getUserId()))
-                            .path("/")
-                            .build());
+        if(null != linkAuth){
+            switch (linkAuth){
+                case 1:{
+                    break;
+                }case 2:{
+                    break;
+                }case 3:{
+                    return chain.filter(exchange);
+                }case 4:{
+                    CommonResult<UserInfo> userInfoCommonResult = sysUserService.login(request.getQueryParams().getFirst("username"), request.getQueryParams().getFirst("password"));
+                    if(userInfoCommonResult.isSuccess()){
+                        UserInfo userInfo = userInfoCommonResult.getResult();
+                        long tokenResp = idGenerateable.getUniqueID();
+                        tokenCache.put(tokenResp, new TokenInfo(userInfo.getUserId(), System.currentTimeMillis()+ 1000L*60*60*24));
+                        userInfoCache.put(userInfo.getUserId(), userInfo);
+                        response.getCookies().add(AUTHORIZE_TOKEN, ResponseCookie.from(AUTHORIZE_TOKEN
+                                , String.valueOf(tokenResp))
+                                .path("/")
+                                .build());
+                        response.getCookies().add(AUTHORIZE_UID, ResponseCookie.from(AUTHORIZE_UID
+                                , String.valueOf(userInfo.getUserId()))
+                                .path("/")
+                                .build());
+                    }
+                    return ResponseUtil.commonResultResponse(response, userInfoCommonResult);
+                }case 5:{
+                    break;
+                }case 6:{
+                    break;
+                }default:{
+                    return ResponseUtil.commonResultResponse(response, CommonResult.errorReturn(CommonCode.NO_PAGE));
                 }
-                return ResponseUtil.commonResultResponse(response, userInfoCommonResult);
-            }case 5:{
-                break;
-            }case 6:{
-                break;
-            }default:{
-                return ResponseUtil.commonResultResponse(response, CommonResult.errorReturn(CommonCode.NO_PAGE));
             }
         }
         MultiValueMap<String, HttpCookie> headers = request.getCookies();
@@ -114,7 +113,7 @@ public class AuthorityWebFilter implements WebFilter,Ordered {
         }catch (Exception e){
             return ResponseUtil.commonResultResponse(response, CommonResult.errorReturn(CommonCode.LOGIN_ERROR));
         }
-        if(5 == linkAuth){
+        if(Integer.valueOf(5).equals(linkAuth)){
             userInfoCache.remove(tokenId);
             tokenCache.remove(userId);
             return ResponseUtil.commonResultResponse(response, CommonResult.successReturn());
@@ -133,14 +132,21 @@ public class AuthorityWebFilter implements WebFilter,Ordered {
         if(null == userInfo){
             return ResponseUtil.commonResultResponse(response, CommonResult.errorReturn(CommonCode.NO_LOGIN_USERINFO));
         }
-        if(6 == linkAuth){
+
+        if(null == linkAuth){
+            if(!UserInfoTypeEnum.SUPER_ADMIN.getCode().equals(userInfo.getType())){
+                return ResponseUtil.commonResultResponse(response, CommonResult.errorReturn(CommonCode.NO_PAGE));
+            }
+        }
+
+        if(Integer.valueOf(6).equals(linkAuth)){
             return ResponseUtil.commonResultResponse(response, CommonResult.successReturn(userInfo));
         }
 
-        if(1 == linkAuth){
-            if(!userInfo.getAuthUrls().contains(uri)){
-                return ResponseUtil.commonResultResponse(response, CommonResult.errorReturn(CommonCode.NO_AUTH));
-            }
+        if(Integer.valueOf(1).equals(linkAuth)){
+                if(!userInfo.getAuthUrls().contains(uri)){
+                    return ResponseUtil.commonResultResponse(response, CommonResult.errorReturn(CommonCode.NO_AUTH));
+                }
         }
         long traceId = idGenerateable.getUniqueID();
         ServerHttpRequest newHeaders= request.mutate().headers(httpHeaders -> {
@@ -149,9 +155,11 @@ public class AuthorityWebFilter implements WebFilter,Ordered {
             if(null != userInfo.getTenantId()){
                 httpHeaders.set(StringDef.TENANT_ID, String.valueOf(userInfo.getTenantId()));
             }
+            if(null != userInfo.getSystemId()){
+                httpHeaders.set(StringDef.SYSTEM_ID, String.valueOf(userInfo.getSystemId()));
+            }
         }).build();
         return chain.filter(exchange.mutate().request(newHeaders).build());
-
     }
 
     @Override
