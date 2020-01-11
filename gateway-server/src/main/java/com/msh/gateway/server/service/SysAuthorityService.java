@@ -18,6 +18,7 @@ public class SysAuthorityService {
     private SysAuthorityUrlClient sysAuthorityUrlClient;
     public CommonResult<Map<String, Integer>> getUrlAuthIdMap(){
         AuthorityUrlQO authorityUrlQO = new AuthorityUrlQO();
+        authorityUrlQO.setCurrentPage(1);
         authorityUrlQO.setPageSize(Integer.MAX_VALUE);
         CommonResult<List<AuthorityUrlPO>> listCommonResult
                 = sysAuthorityUrlClient.list(authorityUrlQO);

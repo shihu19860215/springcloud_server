@@ -137,17 +137,18 @@ public class AuthorityWebFilter implements WebFilter,Ordered {
             if(!UserInfoTypeEnum.SUPER_ADMIN.getCode().equals(userInfo.getType())){
                 return ResponseUtil.commonResultResponse(response, CommonResult.errorReturn(CommonCode.NO_PAGE));
             }
-        }
+        }else {
+            if(Integer.valueOf(6).equals(linkAuth)){
+                return ResponseUtil.commonResultResponse(response, CommonResult.successReturn(userInfo));
+            }
 
-        if(Integer.valueOf(6).equals(linkAuth)){
-            return ResponseUtil.commonResultResponse(response, CommonResult.successReturn(userInfo));
-        }
-
-        if(Integer.valueOf(1).equals(linkAuth)){
+            if(Integer.valueOf(1).equals(linkAuth)){
                 if(!userInfo.getAuthUrls().contains(uri)){
                     return ResponseUtil.commonResultResponse(response, CommonResult.errorReturn(CommonCode.NO_AUTH));
                 }
+            }
         }
+
         long traceId = idGenerateable.getUniqueID();
         ServerHttpRequest newHeaders= request.mutate().headers(httpHeaders -> {
             httpHeaders.set(StringDef.TRACE_ID, String.valueOf(traceId));
